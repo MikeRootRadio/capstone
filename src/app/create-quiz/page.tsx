@@ -44,6 +44,7 @@ export default function CreateQuiz() {
                 title
             }
         });
+
         
         const newQuiz = prisma.quizzes.findFirst()
 
@@ -68,7 +69,7 @@ export default function CreateQuiz() {
                 
                 <div id="quiz_name_container">
                     <label htmlFor="quiz_title">QUIZ NAME</label>
-                    <input type="text" id="quiz_title" name="quiz_title" placeholder="Please input a unique quiz name" value={title}></input>
+                    <input type="text" id="quiz_title" name="quiz_title" placeholder="Please input a unique quiz name" required value={title}></input>
                 </div>
                 <hr/>
 

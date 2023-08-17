@@ -3,7 +3,7 @@ import prisma from "@/prisma/prisma";
 type Props = {
   params: { id: string }
 }
-  
+
 export default async function PlayDetails({ params }: Props) {
   const quiz = await prisma.quizzes.findFirst({
       where: {
@@ -15,7 +15,7 @@ export default async function PlayDetails({ params }: Props) {
       where: {
           quizId: parseInt(params.id)
       }
-  });
+  })
 
   return (
     <main>
@@ -23,7 +23,7 @@ export default async function PlayDetails({ params }: Props) {
       {
         questions.map((key, index) => 
           <>
-            <h2 className="question_number">Question #{index}</h2>
+            <h2 className="question_number">Question #{index + 1}</h2>
             <h3>{key.question}</h3>
 
             <div className="choice">
