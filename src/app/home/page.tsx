@@ -1,4 +1,5 @@
 import prisma from "@/prisma/prisma";
+import { Quizzes } from "@prisma/client";
 
 export default async function Home() {
 
@@ -9,7 +10,7 @@ export default async function Home() {
             <h2 id="all_quizzes">ALL QUIZZES</h2>
             <a href={`create-quiz`} id="build_new_quiz">BUILD NEW QUIZ</a>
             <hr/>
-            {quizzes.map((a, index) => 
+            {quizzes.map((a: Quizzes, index: number) => 
                 <div key={index} className="quiz_container">
                     <h3 className="quiz_container_title">
                         {a.title}
