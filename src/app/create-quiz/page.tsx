@@ -2,6 +2,8 @@
 
 import { FormEvent, useState } from "react";
 import prisma from "@/prisma/prisma";
+import { PUT } from "../api/quizzes/[id]/route";
+import { POST } from "../api/quizzes/route";
 
 type question = {
     id: string;
@@ -35,41 +37,30 @@ export default function CreateQuiz() {
 
     const [title, setTitle] = useState('');
 
-    function handleSubmit(e:FormEvent){
+    async function handleSubmit(e:FormEvent){
         e.preventDefault();
 
-        /*
-        prisma.quizzes.create({
-            data: {
-                title
-            }
+        const newQuiz = {
+            title: title
+        };
+
+        const response = await fetch("https://capstone-pearl-seven.vercel.app/", {
+            method: "POST", // or 'PUT'
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newQuiz),
         });
-
-        
-        const newQuiz = prisma.quizzes.findFirst()
-
-        selectedQuestions.map((post) =>
-            prisma.questions.create({
-                data: {
-                    externalQuestionId: "1",
-                    question: post.question.text,
-                    correctAnswer: post.correctAnswer,
-                    incorrectAnswers: post.incorrectAnswers[0],
-                    quizId: 0
-                }
-            })
-        )
-        */
     }
 
     return (
         <div id="create_quiz_container">
-            <form>
+            <form onSubmit={handleSubmit}>
                 <h2>QUIZ BUILDER</h2>
                 
                 <div id="quiz_name_container">
                     <label htmlFor="quiz_title">QUIZ NAME</label>
-                    <input type="text" id="quiz_title" name="quiz_title" placeholder="Please input a unique quiz name" required value={title}></input>
+                    <input type="text" id="quiz_title" name="quiz_title" placeholder="Please input a unique quiz name" required onChange={(e) => setTitle(e.target.value)}></input>
                 </div>
                 <hr/>
 
